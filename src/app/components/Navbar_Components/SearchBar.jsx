@@ -2,17 +2,19 @@
 
 import React from 'react'
 import { Searchvideos } from '@/utils/fetchData'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Image from 'next/image'
+import { SearchContext } from '@/contexts/SearchContext'
 
 const SearchBar = () => {
 
-      const [ loading, setLoading ] = useState(false);
-      const [result, setResult] = useState([])
-      const [ask, SetAsk] =useState ("")
+     const { result, setResult } = useContext(SearchContext);   
+
+      const [ loading, setLoading ] = useState(false)
+      const [ask, setAsk] =useState ("")
 
       const handleSearch = async (e) =>{
-        e.preventDefault(),
+        e.preventDefault();
         setLoading(true)
         
         const data = await Searchvideos(`search/?query=${ask}`)
@@ -31,7 +33,7 @@ const SearchBar = () => {
     <form onSubmit={handleSearch}>
       <input type="text" placeholder='Search..'
       value={ask}
-      onChange={(e) => SetAsk(e.target.value)}/>
+      onChange={(e) => setAsk(e.target.value)}/>
       <button>
          Search 
       </button>
